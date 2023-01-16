@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfg>
+	<audioDevices>
+		<audioDevice id="analog">
+			<parameters>
+				<parameter name="speakLanguageCode">en</parameter>
+			</parameters>
+		</audioDevice>
+	</audioDevices>
+</cfg>

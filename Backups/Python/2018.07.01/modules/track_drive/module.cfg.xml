@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfg>
+	<trackdrives>
+		<trackdrive id="main">
+			<parameters>
+				<settings>
+					<setting name="testValue">99.99</setting>
+				</settings>				
+			</parameters>
+		</trackdrive>
+	</trackdrives>
+</cfg>

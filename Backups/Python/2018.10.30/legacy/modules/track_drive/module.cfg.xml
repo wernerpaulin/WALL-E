@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfg>
+	<trackdrives simulation="false">
+		<trackdrive id="main">
+			<parameters>
+				<parameter name="driveIdLeft">TrackLeft</parameter>
+				<parameter name="driveIdRight">TrackRight</parameter>
+				<parameter name="distanceMeasurementSamplingTime">1.0</parameter>
+				<parameter name="distanceMeasurementADCchannel">1</parameter>
+				<parameter name="audioDevice">analog</parameter>
+				
+				<obstacleHandling>
+					<distanceMeasurement>
+						<pointpairs>
+							<pointpair adcValue="22000" distance="0.05" ></pointpair>
+							<pointpair adcValue="13700" distance="0.1" ></pointpair>
+							<pointpair adcValue="6000"  distance="0.2" ></pointpair>
+							<pointpair adcValue="3100"  distance="0.3" ></pointpair>
+							<pointpair adcValue="1500"  distance="0.4" ></pointpair>
+							<pointpair adcValue="100"   distance="0.5" ></pointpair>
+							<pointpair adcValue="-4000" distance="0.8" ></pointpair>
+						</pointpairs>
+					</distanceMeasurement>
+					
+					<observationZones>
+						<observationZone distance="2.00" velocityScale="1.0" textToSpeech="" audioFile=""></observationZone>
+						<observationZone distance="0.45" velocityScale="0.7" textToSpeech="" audioFile=""></observationZone>
+						<observationZone distance="0.30" velocityScale="0.5" textToSpeech="I will need to stop soon!" audioFile=""></observationZone>
+						<observationZone distance="0.10" velocityScale="0" textToSpeech="Please get out of my way!" audioFile="/home/pi/wall-e/audio/honk.mp3"></observationZone>
+					</observationZones>
+
+				</obstacleHandling>
+			</parameters>
+		</trackdrive>
+	</trackdrives>
+</cfg>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfg>
+	<servos simulation="false">
+		<servo id="TrackLeft">
+			<parameters>
+				<parameter name="pwmChannel">0</parameter>
+				<parameter name="pwmDutyCycleMin"></parameter>
+				<parameter name="pwmDutyCycleMax"></parameter>
+				<parameter name="directionChannel1">1</parameter>
+				<parameter name="directionChannel2">2</parameter>
+				<parameter name="sMin"></parameter>
+				<parameter name="sMax"></parameter>
+				<parameter name="vMax">121</parameter>
+				<parameter name="aMax">74</parameter>
+				<parameter name="homingPosition"></parameter>
+				<parameter name="isDCmotor">true</parameter>
+				<parameter name="dcMotorReverseDirection">false</parameter>
+			</parameters>
+		</servo>
+		<servo id="TrackRight">
+			<parameters>
+				<parameter name="pwmChannel">5</parameter>
+				<parameter name="pwmDutyCycleMin"></parameter>
+				<parameter name="pwmDutyCycleMax"></parameter>
+				<parameter name="directionChannel1">3</parameter>
+				<parameter name="directionChannel2">4</parameter>
+				<parameter name="sMin"></parameter>
+				<parameter name="sMax"></parameter>
+				<parameter name="vMax">101</parameter>
+				<parameter name="aMax">60</parameter>
+				<parameter name="homingPosition"></parameter>
+				<parameter name="isDCmotor">true</parameter>
+				<parameter name="dcMotorReverseDirection">true</parameter>
+			</parameters>
+		</servo>
+		<servo id="ArmLeft">
+			<parameters>
+				<parameter name="pwmChannel">6</parameter>
+				<parameter name="pwmDutyCycleMin">0.00083</parameter>
+				<parameter name="pwmDutyCycleMax">0.00230</parameter>
+				<parameter name="directionChannel1"></parameter>
+				<parameter name="directionChannel2"></parameter>
+				<parameter name="sMin">20</parameter>
+				<parameter name="sMax">150</parameter>
+				<parameter name="vMax">500</parameter>
+				<parameter name="aMax">600</parameter>
+				<parameter name="homingPosition">60</parameter>
+				<parameter name="isDCmotor">false</parameter>
+				<parameter name="dcMotorReverseDirection">false</parameter>
+			</parameters>
+		</servo>
+		<servo id="ArmRight">
+			<parameters>
+				<parameter name="pwmChannel">7</parameter>
+				<parameter name="pwmDutyCycleMin">0.00083</parameter>
+				<parameter name="pwmDutyCycleMax">0.00230</parameter>
+				<parameter name="directionChannel1"></parameter>
+				<parameter name="directionChannel2"></parameter>
+				<parameter name="sMin">20</parameter>
+				<parameter name="sMax">150</parameter>
+				<parameter name="vMax">500</parameter>
+				<parameter name="aMax">600</parameter>
+				<parameter name="homingPosition">60</parameter>
+				<parameter name="isDCmotor">false</parameter>
+				<parameter name="dcMotorReverseDirection">false</parameter>
+			</parameters>
+		</servo>
+		<servo id="HeadUpDown">
+			<parameters>
+				<parameter name="pwmChannel">8</parameter>
+				<parameter name="pwmDutyCycleMin">0.00083</parameter>
+				<parameter name="pwmDutyCycleMax">0.00230</parameter>
+				<parameter name="directionChannel1"></parameter>
+				<parameter name="directionChannel2"></parameter>
+				<parameter name="sMin">20</parameter>
+				<parameter name="sMax">150</parameter>
+				<parameter name="vMax">400</parameter>
+				<parameter name="aMax">600</parameter>
+				<parameter name="homingPosition">85</parameter>
+				<parameter name="isDCmotor">false</parameter>
+				<parameter name="dcMotorReverseDirection">false</parameter>
+			</parameters>
+		</servo>
+		<servo id="HeadLeftRight">
+			<parameters>
+				<parameter name="pwmChannel">9</parameter>
+				<parameter name="pwmDutyCycleMin">0.00083</parameter>
+				<parameter name="pwmDutyCycleMax">0.00230</parameter>
+				<parameter name="directionChannel1"></parameter>
+				<parameter name="directionChannel2"></parameter>
+				<parameter name="sMin">20</parameter>
+				<parameter name="sMax">150</parameter>
+				<parameter name="vMax">500</parameter>
+				<parameter name="aMax">600</parameter>
+				<parameter name="homingPosition">60</parameter>
+				<parameter name="isDCmotor">false</parameter>
+				<parameter name="dcMotorReverseDirection">false</parameter>
+			</parameters>
+		</servo>
+	</servos>
+</cfg>

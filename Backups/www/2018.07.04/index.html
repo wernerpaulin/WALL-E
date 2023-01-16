@@ -1,0 +1,137 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>WALL-E Controller</title>
+	<meta name="apple-mobile-web-app-title" content="WALL-E">
+
+    <!-- Icon -->
+	<link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon" />
+	<link rel="apple-touch-icon" href="favicon/apple-touch-icon.png" />
+	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-touch-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-touch-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-touch-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-touch-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-touch-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-touch-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon-180x180.png" />	
+
+	
+	<!-- Include meta tag to ensure proper rendering and touch zooming -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+    <!-- Full screen - hide the browser URL bar -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="mobile-web-app-capable" content="yes">
+    <!-- Set color of status bar -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<style>
+	table, th, td {
+		border: 0px solid black;
+		text-align:center;
+	}
+	
+	table {
+		width:30%;
+	}
+
+	th, td {
+		padding: 10px;
+		text-align:center;
+	}
+	</style>	
+	
+	
+	<script type="text/javascript">
+		function cmdForward(){
+			console.log("Forward");
+
+			xhr = new XMLHttpRequest();
+			var url = "http://192.168.0.3:5000/servos/1/MoveAbsolute";
+			xhr.open("POST", url, true);
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function () { 
+			    if (xhr.readyState == 4 && xhr.status == 200) {
+			        console.log(xhr.responseText);
+			    }
+			}
+			var data = JSON.stringify({"setPos":90});
+			xhr.send(data);
+			
+		}
+		
+		function cmdBackward(){
+			console.log("Backward");
+		}
+		
+		function cmdLeft(){
+			console.log("Left");
+		}
+		
+		function cmdRight(){
+			console.log("Right");
+		}
+		
+		function cmdStop(){
+			console.log("Stop");
+		}
+		
+		function getStatus(){
+			console.log("Get Status");
+			
+			// Get status data
+			xhr = new XMLHttpRequest();
+			var url = "http://192.168.0.3:5000/servos/1/MoveStatus";
+			xhr.open("GET", url, true);
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function () { 
+			    if (xhr.readyState == 4 && xhr.status == 200) {
+			        jsonData = JSON.parse(xhr.responseText)
+			        console.log(jsonData);
+			    }
+			}
+			xhr.send(null);
+		}
+
+
+
+
+
+
+	</script>
+
+
+
+	
+</head>
+
+
+<body>
+	<table>
+	  <tr>
+		<td></td>
+		<td><button onclick="cmdForward()">Forward</button></td> 
+		<td></td>
+	  </tr>
+	  <tr>
+		<td><button onclick="cmdLeft()">Left</button></td>
+		<td><button onclick="cmdStop()">Stop</button></td> 
+		<td><button onclick="cmdRight()">Right</button></td>
+	  </tr>
+	  <tr>
+		<td></td>
+		<td><button onclick="cmdBackward()">Backward</button></td>
+		<td></td> 
+	  </tr>
+	  <tr>
+		<td></td>
+		<td><button onclick="getStatus()">Get Status</button></td>
+		<td></td> 
+	  </tr>
+	</table>
+
+
+	
+</body>
+</html>

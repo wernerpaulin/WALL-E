@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WALL-E featering Blockly</title>
+
+	<script src="blockly/blockly_compressed.js"></script>
+	<script src="blockly/blocks_compressed.js"></script>
+	<script src="blockly/javascript_compressed.js"></script>
+	<script src="blockly/python_compressed.js"></script>
+	<script src="blockly/msg/js/en.js"></script>
+	
+	
+<xml id="toolbox" style="display: none">
+ 	<category name="Logic" colour="210">
+	    <block type="logic_compare"></block>
+	    <block type="logic_operation"></block>
+	    <block type="logic_boolean"></block>
+		<block type="math_number"></block>
+		<block type="math_arithmetic"></block>
+		<block type="text"></block>
+		<block type="text_print"></block>
+	  	    
+	</category>
+ 	<category name="Loops" colour="120">
+	    <block type="controls_if"></block>
+	    <block type="controls_whileUntil"></block>
+	    <block type="controls_for">
+	</category>
+	<category name="WALL-E" colour="320">
+      <block type="move_forward"></block>
+      <block type="move_backward"></block>
+      <block type="move_stop"></block>
+      <block type="turn_left"></block>
+      <block type="turn_right"></block>
+      <block type="read_distance"></block>
+      <block type="honk"></block>
+      <block type="move_arm_left"></block>
+      <block type="move_arm_left"></block>
+      <block type="move_head_horizontal"></block>
+	</category>
+  
+</xml>
+
+
+	<script>
+		var workspace 
+		function injectBlockly()
+	  	{
+	  		workspace = Blockly.inject('blocklyArea', {toolbox: document.getElementById('toolbox')});
+		}
+		
+		function Blockly_Start()
+		{
+			var code = Blockly.Python.workspaceToCode(workspace);
+			console.log(code)
+		}
+		
+	</script>
+
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      background-color: #fffff;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+    h1 {
+      font-weight: normal;
+      font-size: 140%;
+    }
+    table {
+      height: 100%;
+      width: 100%;
+    }
+    #blocklyArea {
+      height: 99%;
+      background: #ffffff;
+      text-align: center;
+    }
+  </style>
+</head>
+<body onload=injectBlockly()>
+	<div id="blocklyDiv"></div>
+  <table>
+    
+    <tr>
+      <td style="text-align: center; padding-top: 20px; padding-bottom: 20px">WALL-E programming with Blockly</td>
+    </tr>
+    <tr>
+      <td id="blocklyArea">
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: center; padding-top: 20px; padding-bottom: 20px"><input type="button" value="Start" onclick=Blockly_Start()></td>
+    </tr>
+  </table>
+</body>
+</html>

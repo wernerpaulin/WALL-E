@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfg>
+	<servos simulation="false">
+		<servo id="0">
+			<parameters>
+				<parameter name="i2cAdr">0x40</parameter>
+				<parameter name="pwmChannel">0</parameter>
+				<parameter name="angleMin">0</parameter>
+				<parameter name="angleMax">180</parameter>
+				<parameter name="pwmDutyCycleMin">0.0006</parameter>
+				<parameter name="pwmDutyCycleMax">0.0023</parameter>
+				<parameter name="pwmPeriode">0.02</parameter>
+			</parameters>
+		</servo>
+		<servo id="1">
+			<parameters>
+				<parameter name="i2cAdr">0x40</parameter>
+				<parameter name="pwmChannel">1</parameter>
+				<parameter name="angleMin">0</parameter>
+				<parameter name="angleMax">180</parameter>
+				<parameter name="pwmDutyCycleMin">0.0006</parameter>
+				<parameter name="pwmDutyCycleMax">0.0023</parameter>
+				<parameter name="pwmPeriode">0.02</parameter>
+			</parameters>
+		</servo>
+	</servos>
+</cfg>

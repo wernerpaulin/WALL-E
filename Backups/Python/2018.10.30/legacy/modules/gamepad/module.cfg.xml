@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfg>
+	<gamepads>
+		<gamepad id="snakebyte">
+			<parameters>
+				<parameter name="inputDevicePath">/dev/input/event1</parameter>
+				<parameter name="bluetoothConnectScript">~/wall-e/modules/gamepad/bt_autoconnect</parameter>
+			</parameters>
+			
+			<keys>
+				<key id="stickLeft_UpDown" code="1"></key>
+				<key id="stickLeft_LeftRight" code="0"></key>
+
+				<key id="stickRight_UpDown" code="5"></key>
+				<key id="stickRight_LeftRight" code="2"></key>
+
+				<key id="triggerLeft" code="312"></key>
+				<key id="triggerRight" code="313"></key>
+
+				<key id="actionButton_B" code="305"></key>
+			</keys>
+
+			<actions>
+				<action id="trackFwdBwd">
+					<triggerKey id="stickLeft_UpDown" inMin="32767" inMax="-32768" outMin="-100" outMax="100" outputDeadBandWindow="1" outputTriggerThreshold="" selectorKeyId="triggerLeft" selectorKeyValue="0"></triggerKey>
+					<restCfg ipAdr="127.0.0.1" ipPort="5001" routeOrigin="track" route="/main/job/Move">
+						<dataItems>
+							<dataItem name="setVelocity" valueFromKey="stickLeft_UpDown" valueFix=""></dataItem>
+						</dataItems>
+					</restCfg>
+				</action>
+				
+				<action id="trackTurnLeft">
+					<triggerKey id="stickLeft_LeftRight" inMin="-32768" inMax="0" outMin="10" outMax="0" outputDeadBandWindow="1" outputTriggerThreshold="" selectorKeyId="" selectorKeyValue=""></triggerKey>
+					<restCfg ipAdr="127.0.0.1" ipPort="5001" routeOrigin="track" route="/main/job/TurnLeft">
+						<dataItems>
+							<dataItem name="setTurningDeltaVelocity" valueFromKey="stickLeft_LeftRight" valueFix=""></dataItem>
+						</dataItems>
+					</restCfg>
+				</action>
+				
+				<action id="trackTurnRight">
+					<triggerKey id="stickLeft_LeftRight" inMin="0" inMax="32768" outMin="0" outMax="10" outputDeadBandWindow="1" outputTriggerThreshold="" selectorKeyId="" selectorKeyValue=""></triggerKey>
+					<restCfg ipAdr="127.0.0.1" ipPort="5001" routeOrigin="track" route="/main/job/TurnRight">
+						<dataItems>
+							<dataItem name="setTurningDeltaVelocity" valueFromKey="stickLeft_LeftRight" valueFix=""></dataItem>
+						</dataItems>
+					</restCfg>
+				</action>
+
+				<action id="headUpDown">
+					<triggerKey id="stickRight_UpDown" inMin="0" inMax="255" outMin="70" outMax="100" outputDeadBandWindow="1" outputTriggerThreshold="" selectorKeyId="triggerRight" selectorKeyValue="0"></triggerKey>
+					<restCfg ipAdr="127.0.0.1" ipPort="5000" routeOrigin="servos" route="/HeadUpDown/job/Move">
+						<dataItems>
+							<dataItem name="setPosition" valueFromKey="stickRight_UpDown" valueFix=""></dataItem>
+							<dataItem name="setVelocity" valueFromKey="" valueFix="100"></dataItem>
+						</dataItems>
+					</restCfg>
+				</action>
+
+				<action id="headLeftRight">
+					<triggerKey id="stickRight_LeftRight" inMin="0" inMax="255" outMin="100" outMax="20" outputDeadBandWindow="1" outputTriggerThreshold="" selectorKeyId="" selectorKeyValue=""></triggerKey>
+					<restCfg ipAdr="127.0.0.1" ipPort="5000" routeOrigin="servos" route="/HeadLeftRight/job/Move">
+						<dataItems>
+							<dataItem name="setPosition" valueFromKey="stickRight_LeftRight" valueFix=""></dataItem>
+							<dataItem name="setVelocity" valueFromKey="" valueFix="100"></dataItem>
+						</dataItems>
+					</restCfg>
+				</action>
+				
+				<action id="armLeft">
+					<triggerKey id="stickLeft_UpDown" inMin="-32767" inMax="32768" outMin="20" outMax="100" outputDeadBandWindow="1" outputTriggerThreshold="" selectorKeyId="triggerLeft" selectorKeyValue="1"></triggerKey>
+					<restCfg ipAdr="127.0.0.1" ipPort="5000" routeOrigin="servos" route="/ArmLeft/job/Move">
+						<dataItems>
+							<dataItem name="setPosition" valueFromKey="stickLeft_UpDown" valueFix=""></dataItem>
+							<dataItem name="setVelocity" valueFromKey="" valueFix="50"></dataItem>
+						</dataItems>
+					</restCfg>
+				</action>
+				
+				<action id="armRight">
+					<triggerKey id="stickRight_UpDown" inMin="0" inMax="255" outMin="20" outMax="100" outputDeadBandWindow="1" outputTriggerThreshold="" selectorKeyId="triggerRight" selectorKeyValue="1"></triggerKey>
+					<restCfg ipAdr="127.0.0.1" ipPort="5000" routeOrigin="servos" route="/ArmRight/job/Move">
+						<dataItems>
+							<dataItem name="setPosition" valueFromKey="stickRight_UpDown" valueFix=""></dataItem>
+							<dataItem name="setVelocity" valueFromKey="" valueFix="100"></dataItem>
+						</dataItems>
+					</restCfg>
+				</action>
+
+				<action id="honk">
+					<triggerKey id="actionButton_B" inMin="0" inMax="1" outMin="0" outMax="1" outputDeadBandWindow="1" outputTriggerThreshold="1" selectorKeyId="" selectorKeyValue=""></triggerKey>
+					<restCfg ipAdr="127.0.0.1" ipPort="5002" routeOrigin="audio" route="/analog/job/Play">
+						<dataItems>
+							<dataItem name="audioFile" valueFromKey="" valueFix="/home/pi/wall-e/audio/honk.mp3"></dataItem>
+						</dataItems>
+					</restCfg>
+				</action>
+			</actions>
+
+		</gamepad>
+	</gamepads>
+</cfg>

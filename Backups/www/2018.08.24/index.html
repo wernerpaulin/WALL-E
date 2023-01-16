@@ -1,0 +1,324 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>WALL-E Controller</title>
+	<meta name="apple-mobile-web-app-title" content="WALL-E">
+
+    <!-- Icon -->
+	<link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon" />
+	<link rel="apple-touch-icon" href="favicon/apple-touch-icon.png" />
+	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-touch-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-touch-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-touch-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-touch-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-touch-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-touch-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon-180x180.png" />	
+
+	
+	<!-- Include meta tag to ensure proper rendering and touch zooming -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+    <!-- Full screen - hide the browser URL bar -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="mobile-web-app-capable" content="yes">
+    <!-- Set color of status bar -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<style>
+	table, th, td {
+		border: 1px solid grey;
+		text-align:left;
+	}
+	
+	table {
+		width:30%;
+	}
+
+	th, td {
+		padding: 10px;
+		text-align:center;
+	}
+	</style>	
+	
+	
+	<script type="text/javascript">
+		HOST_IP_ADDRESS = "192.168.0.3"		//192.168.3.2 or 192.168.0.3
+		HOST_PORT_SERVO = "5000"
+		HOST_PORT_TRACK = "5001"
+	
+		function documentReady() {
+			document.getElementById("host_ip").innerText = HOST_IP_ADDRESS
+		}
+	
+		//+++++++++++++++++++++++++++++++++++ INDIVIDUAL SERVO CONTROL ++++++++++++++++++++++++++++
+
+		function cmdServoMove(){
+			pos = document.getElementById("servoSetPosition").value;
+			vel = document.getElementById("setServoVelocity").value;
+			e = document.getElementById("servoSelector")
+			id = e.options[e.selectedIndex].value
+
+			if (pos == "") pos = 0
+			if (vel == "") vel = 0
+
+			xhr = new XMLHttpRequest();
+			var url = "http://" + HOST_IP_ADDRESS + ":" + HOST_PORT_SERVO + "/servos/" + id + "/job/Move";
+			xhr.open("POST", url, true);
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function () { 
+			    if (xhr.readyState == 4 && xhr.status == 200) {
+			        console.log(xhr.responseText);
+			    }
+			}
+			var data = JSON.stringify({"setVelocity":vel, "setPosition":pos});
+			xhr.send(data);
+
+		}
+		
+
+		function cmdServoStop(){
+			e = document.getElementById("servoSelector")
+			id = e.options[e.selectedIndex].value
+
+			xhr = new XMLHttpRequest();
+			var url = "http://" + HOST_IP_ADDRESS + ":" + HOST_PORT_SERVO + "/servos/" + id + "/job/Stop";
+			xhr.open("POST", url, true);
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function () { 
+			    if (xhr.readyState == 4 && xhr.status == 200) {
+			        console.log(xhr.responseText);
+			    }
+			}
+			var data = JSON.stringify({});
+			xhr.send(data);
+		}
+		
+
+
+		function getServoActPos(){
+			// Get status data
+			e = document.getElementById("servoSelector")
+			id = e.options[e.selectedIndex].value
+
+			xhr = new XMLHttpRequest();
+			var url = "http://" + HOST_IP_ADDRESS + ":" + HOST_PORT_SERVO + "/servos/" + id + "/status/actPosition";
+			xhr.open("GET", url, true);
+			xhr.responseType = 'json';							//IMPORTANT: for json parsing
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function () { 
+			    if (xhr.readyState == 4 && xhr.status == 200) {
+			        jsonData = JSON.parse(xhr.response)			//IMPORTANT: for json parsing use .response not .responseText
+			        console.log(jsonData);
+			        document.getElementById("servoActPosition").innerText = jsonData["actPosition"]
+			    }
+			}
+			xhr.send(null);
+		}
+
+		function getServoActVel(){
+			// Get status data
+			e = document.getElementById("servoSelector")
+			id = e.options[e.selectedIndex].value
+
+			xhr = new XMLHttpRequest();
+			var url = "http://" + HOST_IP_ADDRESS + ":" + HOST_PORT_SERVO + "/servos/" + id + "/status/actVelocity";
+			xhr.open("GET", url, true);
+			xhr.responseType = 'json';							//IMPORTANT: for json parsing
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function () { 
+			    if (xhr.readyState == 4 && xhr.status == 200) {
+			        jsonData = JSON.parse(xhr.response)			//IMPORTANT: for json parsing use .response not .responseText
+			        console.log(jsonData);
+			        document.getElementById("servoActVelocity").innerText = jsonData["actVelocity"]
+			    }
+			}
+			xhr.send(null);
+		}
+
+
+		function getServoInPos(){
+			// Get status data
+			e = document.getElementById("servoSelector")
+			id = e.options[e.selectedIndex].value
+
+			xhr = new XMLHttpRequest();
+			var url = "http://" + HOST_IP_ADDRESS + ":" + HOST_PORT_SERVO + "/servos/" + id + "/status/inPos";
+			xhr.open("GET", url, true);
+			xhr.responseType = 'json';							//IMPORTANT: for json parsing
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function () { 
+			    if (xhr.readyState == 4 && xhr.status == 200) {
+			        jsonData = JSON.parse(xhr.response)			//IMPORTANT: for json parsing use .response not .responseText
+			        console.log(jsonData);
+			        document.getElementById("servoInPos").innerText = jsonData["inPos"]
+			    }
+			}
+			xhr.send(null);
+		}
+
+		//+++++++++++++++++++++++++++++++++++ TRACK DRIVE CONTROL ++++++++++++++++++++++++++++
+
+
+		function cmdTrackMove(){
+			pos = document.getElementById("trackSetPosition").value;
+			vel = document.getElementById("trackSetVelocity").value;
+
+			if (pos == "") pos = 0
+			if (vel == "") vel = 0
+
+
+			xhr = new XMLHttpRequest();
+			var url = "http://" + HOST_IP_ADDRESS + ":" + HOST_PORT_TRACK + "/track/" + "main" + "/job/Move";
+
+			xhr.open("POST", url, true);
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function () { 
+			    if (xhr.readyState == 4 && xhr.status == 200) {
+			        console.log(xhr.responseText);
+			    }
+			}
+			var data = JSON.stringify({"setVelocity":vel, "setPosition":pos});
+			xhr.send(data);
+
+		}
+
+		function cmdTrackStop(){
+			xhr = new XMLHttpRequest();
+			var url = "http://" + HOST_IP_ADDRESS + ":" + HOST_PORT_TRACK + "/track/" + "main" + "/job/Stop";
+			xhr.open("POST", url, true);
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function () { 
+			    if (xhr.readyState == 4 && xhr.status == 200) {
+			        console.log(xhr.responseText);
+			    }
+			}
+			var data = JSON.stringify({});
+			xhr.send(data);
+		}
+		
+		function getTrackActPos(){
+			// Get status data
+
+			xhr = new XMLHttpRequest();
+			var url = "http://" + HOST_IP_ADDRESS + ":" + HOST_PORT_TRACK + "/track/" + "main" + "/status/actPosition";
+			xhr.open("GET", url, true);
+			xhr.responseType = 'json';							//IMPORTANT: for json parsing
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function () { 
+			    if (xhr.readyState == 4 && xhr.status == 200) {
+			        jsonData = JSON.parse(xhr.response)			//IMPORTANT: for json parsing use .response not .responseText
+			        console.log(jsonData);
+			        document.getElementById("trackActPosition").innerText = jsonData["actPosition"]
+			    }
+			}
+			xhr.send(null);
+		}
+
+		function getTrackActVel(){
+			// Get status data
+
+			xhr = new XMLHttpRequest();
+			var url = "http://" + HOST_IP_ADDRESS + ":" + HOST_PORT_TRACK + "/track/" + "main" + "/status/actVelocity";
+			xhr.open("GET", url, true);
+			xhr.responseType = 'json';							//IMPORTANT: for json parsing
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function () { 
+			    if (xhr.readyState == 4 && xhr.status == 200) {
+			        jsonData = JSON.parse(xhr.response)			//IMPORTANT: for json parsing use .response not .responseText
+			        console.log(jsonData);
+			        document.getElementById("trackActVelocity").innerText = jsonData["actVelocity"]
+			    }
+			}
+			xhr.send(null);
+		}
+
+
+
+	</script>
+
+
+
+	
+</head>
+
+
+<body onload="documentReady()">
+	<p>Accessing IP address: <span id="host_ip"></span></p>
+	
+	<p>
+	<strong>Manual control of a servo:</strong>
+	<select id="servoSelector">
+	  <option value="TrackLeft">Track left</option>
+	  <option value="TrackRight">Track right</option>
+	  <option value="ArmLeft">Arm left</option>
+	  <option value="ArmRight">Arm right</option>
+	  <option value="HeadHorizontal">Head horizontal</option>
+	  <option value="HeadVertical">Head vertical</option>
+	</select>
+	</p>
+	
+	<table>
+	  <tr>
+	  	<th colspan=2>Set values</th>
+	  	<th>Commands</th>
+	  	<th colspan=2>Status</th>
+	  </tr>	
+	  <tr>
+		<td>Set position</td>
+		<td><input id="servoSetPosition"></input></td>
+		<td><button onclick="cmdServoMove()">Move</button></td>
+
+		<td><button onclick="getServoActPos()">Get actual position</button></td>
+		<td><span id="servoActPosition"></span></td> 
+	  </tr>
+	  <tr>
+		<td>Set velocity</td>
+		<td><input id="setServoVelocity"></input></td>
+		<td><button onclick="cmdServoStop()">Stop</button></td>
+
+		<td><button onclick="getServoActVel()">Get actual velocity</button></td>
+		<td><span id="servoActVelocity"></span></td> 
+	  </tr>
+
+	  <tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td><button onclick="getServoInPos()">Get in position</button></td>
+		<td><span id="servoInPos"></span></td> 
+	  </tr>
+	</table>
+
+
+	<p><strong>Manual control of the track drive:</strong></p>
+	
+	<table>
+	  <tr>
+	  	<th colspan=2>Set values</th>
+	  	<th>Commands</th>
+	  	<th colspan=2>Status</th>
+	  </tr>	
+	  <tr>
+		<td>Set position</td>
+		<td><input id="trackSetPosition"></input></td>
+		<td><button onclick="cmdTrackMove()">Move</button></td>
+
+		<td><button onclick="getTrackActPos()">Get actual position</button></td>
+		<td><span id="trackActPosition"></span></td> 
+	  </tr>
+	  <tr>
+		<td>Set velocity</td>
+		<td><input id="trackSetVelocity"></input></td>
+		<td><button onclick="cmdTrackStop()">Stop</button></td>
+
+		<td><button onclick="getTrackActVel()">Get actual velocity</button></td>
+		<td><span id="trackActVelocity"></span></td> 
+	  </tr>
+	</table>
+
+
+	
+</body>
+</html>

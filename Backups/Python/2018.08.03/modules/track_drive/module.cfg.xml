@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfg>
+	<trackdrives>
+		<trackdrive id="main">
+			<parameters>
+				<parameter name="channelLeftDrive">0</parameter>
+				<parameter name="channelRightDrive">1</parameter>
+			</parameters>
+		</trackdrive>
+	</trackdrives>
+</cfg>
